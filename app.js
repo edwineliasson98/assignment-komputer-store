@@ -17,7 +17,8 @@ const featuresElement = document.getElementById("features");
 
 let laptops = [];
 /**
- * Prompts the user for a loan size. If larger than twice the balance, reject it.
+ * Prompts the user for a loan size. If larger than twice the balance
+ * or input is not a number, reject it.
  * 
  * @returns Nothing, there to stop the function to continue
  */
@@ -141,6 +142,11 @@ const addLaptopToSelect = (laptop) => {
     laptopsElement.appendChild(laptopElement);
 }
 
+/**
+ * Changes the features text to the selected laptops description
+ * 
+ * @param {*} e 
+ */
 const handleLaptopChange = e => {
     const selectedLaptop = laptops[e.target.selectedIndex];
     featuresElement.innerText = selectedLaptop.description;
