@@ -17,7 +17,7 @@ h1,h2,h3,h4 {
 
 #top div {
     width: 180px;
-    height: 155px;
+    height: fit-content;
     float: left;
 }
 
@@ -130,4 +130,8 @@ h2 {
 #laptop-price {
     text-align: center;
     margin-top: 30px;
+}
+
+#features {
+    font-size: x-small;
 }

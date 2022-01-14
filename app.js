@@ -132,7 +132,7 @@ const handleRepayLoan = () => {
  */
 const addLaptopsToSelect = (laptops) => {
     laptops.forEach(laptop => addLaptopToSelect(laptop));
-    featuresElement.innerText = laptops[0].description;
+    changeFeatures(laptops[0]);
     changeInfoArea(laptops[0]);
 }
 
@@ -156,7 +156,7 @@ const addLaptopToSelect = (laptop) => {
  */
 const handleLaptopChange = e => {
     const selectedLaptop = laptops[e.target.selectedIndex];
-    featuresElement.innerText = selectedLaptop.description;
+    changeFeatures(selectedLaptop)
     changeInfoArea(selectedLaptop);
 }
 
@@ -211,6 +211,15 @@ function changeInfoArea(laptop) {
     laptopInformationElement.innerText = laptop.description;
     laptopPriceElement.innerText = laptop.price + " NOK";
     /* TODO -- change the image*/
+}
+
+function changeFeatures(laptop) {
+    let specs = "";
+    for (const spec of laptop.specs) {
+        specs += spec + ", \n";
+    }
+    specs = specs.slice(0, -3);
+    featuresElement.innerText = specs;
 }
 
 //General functions for reuse
