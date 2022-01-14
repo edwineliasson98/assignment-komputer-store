@@ -23,7 +23,7 @@ let laptops = [];
  */
 const handleGetLoan = () => {
     //check if balance is zero
-    const balance = parseInt(bankBalanceElement.innerText);
+    let balance = parseInt(bankBalanceElement.innerText);
     if(balance == 0) {
         alert("Balance is 0, get some money bum!");
         return;
@@ -40,6 +40,10 @@ const handleGetLoan = () => {
         alert("Can only have one loan at a time!")
         return;
     }
+
+    //Add funds to balance
+    balance += loan;
+    bankBalanceElement.innerText = balance + " Kr";
 
     loanAmountElement.innerText = loan + " Kr";
     setLoanVisibility("visible");
