@@ -116,6 +116,7 @@ const handleRepayLoan = () => {
  */
 const addLaptopsToSelect = (laptops) => {
     laptops.forEach(laptop => addLaptopToSelect(laptop));
+    featuresElement.innerText = laptops[0].description;
 }
 
 /**
@@ -131,11 +132,17 @@ const addLaptopToSelect = (laptop) => {
     laptopsElement.appendChild(laptopElement);
 }
 
+const handleLaptopChange = e => {
+    const selectedLaptop = laptops[e.target.selectedIndex];
+    featuresElement.innerText = selectedLaptop.description;
+}
+
 //Listener setup
 loanButtonElement.addEventListener("click", handleGetLoan);
 workButtonElement.addEventListener("click", handleWorking);
 bankButtonElement.addEventListener("click", handlePutIntoBank);
 repayButtonElement.addEventListener("click", handleRepayLoan);
+laptopsElement.addEventListener("change", handleLaptopChange);
 
 //Fetch laptop data, parse it, store it in array and pass it on to function
 fetch("https://noroff-komputer-store-api.herokuapp.com/computers")
