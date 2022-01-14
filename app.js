@@ -19,7 +19,7 @@ let laptops = [];
 /**
  * Prompts the user for a loan size. If larger than twice the balance, reject it.
  * 
- * @returns Nothing, there to stop the function to continue (consider break instead)
+ * @returns Nothing, there to stop the function to continue
  */
 const handleGetLoan = () => {
     //check if balance is zero
@@ -30,9 +30,14 @@ const handleGetLoan = () => {
     }
 
     //prompt user and check loan size
-    const loan = prompt("Please enter the size of the loan: ")
+    const loan = parseInt(prompt("Please enter the size of the loan: "));
     if (loan/2 > balance || loan == "" || loan == null) {
-        alert("Loan cannot be larger than twice the balance!")
+        alert("Loan cannot be larger than twice the balance!");
+        return;
+    }
+
+    if(isNaN(loan)) {
+        alert("Input has to be a number!");
         return;
     }
 
