@@ -1,19 +1,25 @@
 //Bank elements
 const bankElement = document.getElementById("bank");
-const bankBalanceElement = document.getElementById("bankBalance");
+const bankBalanceElement = document.getElementById("bank-balance");
 const loanElements = document.getElementsByClassName("loaning");
-const loanAmountElement = document.getElementById("loanAmount");
-const loanButtonElement = document.getElementById("loan");
+const loanAmountElement = document.getElementById("loan-amount");
+const loanButtonElement = document.getElementById("loan-button");
 
 //Work elements
-const workBalanceElement = document.getElementById("workBalance");
-const repayButtonElement = document.getElementById("repayButton");
-const bankButtonElement = document.getElementById("bankButton");
-const workButtonElement = document.getElementById("workButton");
+const workBalanceElement = document.getElementById("work-balance");
+const repayButtonElement = document.getElementById("repay-button");
+const bankButtonElement = document.getElementById("bank-button");
+const workButtonElement = document.getElementById("work-button");
 
 //Laptop elements
 const laptopsElement = document.getElementById("laptops");
 const featuresElement = document.getElementById("features");
+//Laptop info & buy elements
+const laptopNameElement = document.getElementById("laptop-element");
+const laptopInformationElement = document.getElementById("information");
+const laptopPriceElement = document.getElementById("laptop-price");
+const buyButtonElement = document.getElementById("buy-button");
+const laptopImageElement = document.getElementById("laptop-element");
 
 let laptops = [];
 /**
@@ -165,6 +171,10 @@ fetch("https://noroff-komputer-store-api.herokuapp.com/computers")
     .then(data => laptops = data)
     .then(laptops => addLaptopsToSelect(laptops));
 
+
+function changeInfoArea(laptop) {
+
+}
 
 
 //General functions for reuse

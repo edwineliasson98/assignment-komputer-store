@@ -57,7 +57,7 @@ h2 {
     margin-top: 0;
 }
 
-#bankBalance,  #workBalance, #loanAmount{
+#bank-balance,  #work-balance, #loan-amount{
     float:right;
 }
 
@@ -67,28 +67,28 @@ h2 {
     border-width: 2px;
 }
 
-#loan {
+#loan-button {
     width: 100%;
     background-color: #42f572;
     border-color: #42f560;
 }
 
-#bankButton, #workButton {
+#bank-button, #work-button {
     width: 49%;
 }
 
-#bankButton {
+#bank-button {
     background-color: #f5f542;
     border-color: #f5e642;
 }
 
-#workButton {
+#work-button {
     background-color: #4299f5;
     border-color: #4275f5;
     color: white;
 }
 
-#repayButton {
+#repay-button {
     background-color: orange;
     border-color: chocolate;
     width: 100%;
