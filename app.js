@@ -15,7 +15,7 @@ const workButtonElement = document.getElementById("work-button");
 const laptopsElement = document.getElementById("laptops");
 const featuresElement = document.getElementById("features");
 //Laptop info & buy elements
-const laptopNameElement = document.getElementById("laptop-element");
+const laptopNameElement = document.getElementById("laptop-name");
 const laptopInformationElement = document.getElementById("information");
 const laptopPriceElement = document.getElementById("laptop-price");
 const buyButtonElement = document.getElementById("buy-button");
@@ -133,6 +133,7 @@ const handleRepayLoan = () => {
 const addLaptopsToSelect = (laptops) => {
     laptops.forEach(laptop => addLaptopToSelect(laptop));
     featuresElement.innerText = laptops[0].description;
+    changeInfoArea(laptops[0]);
 }
 
 /**
@@ -156,6 +157,33 @@ const addLaptopToSelect = (laptop) => {
 const handleLaptopChange = e => {
     const selectedLaptop = laptops[e.target.selectedIndex];
     featuresElement.innerText = selectedLaptop.description;
+    changeInfoArea(selectedLaptop);
+}
+
+/**
+ * Checks if there is sufficient funds in the bank for the selected laptop.
+ * If not, alerts the user. Otherwise the user is alerted and funds are withdrawn.
+ * 
+ * @returns Nothing, breaks the function when insufficient funds
+ */
+const handleLaptopPurchase = () => {
+    //Check bank balance
+
+    let balance = parseInt(bankBalanceElement.innerText);
+    const laptopPrice = parseInt(laptopPriceElement.innerText);
+
+    //if not enough balance alert
+    if(balance < laptopPrice) {
+        alert("You cannot afford this laptop");
+        return;
+    }
+
+    //if enough balance withdraw money
+    balance -= laptopPrice;
+    bankBalanceElement.innerText = balance + " Kr";
+
+    //and alert
+    alert(`You are now the owner of the ${laptopNameElement.innerText} laptop!`)
 }
 
 //Listener setup
@@ -164,6 +192,7 @@ workButtonElement.addEventListener("click", handleWorking);
 bankButtonElement.addEventListener("click", handlePutIntoBank);
 repayButtonElement.addEventListener("click", handleRepayLoan);
 laptopsElement.addEventListener("change", handleLaptopChange);
+buyButtonElement.addEventListener("click", handleLaptopPurchase);
 
 //Fetch laptop data, parse it, store it in array and pass it on to function
 fetch("https://noroff-komputer-store-api.herokuapp.com/computers")
@@ -172,10 +201,17 @@ fetch("https://noroff-komputer-store-api.herokuapp.com/computers")
     .then(laptops => addLaptopsToSelect(laptops));
 
 
+/**
+ * Changes the elements in the info box according to the argument
+ * 
+ * @param {*} laptop Laptop object
+ */
 function changeInfoArea(laptop) {
-
+    laptopNameElement.innerText = laptop.title;
+    laptopInformationElement.innerText = laptop.description;
+    laptopPriceElement.innerText = laptop.price + " NOK";
+    /* TODO -- change the image*/
 }
-
 
 //General functions for reuse
 /**

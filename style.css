@@ -42,7 +42,7 @@ h1,h2,h3,h4 {
 }
 
 #info {
-    width: 290px;
+    width: 300px;
     height: 140px;
 }
 
@@ -115,8 +115,8 @@ h2 {
 }
 
 #laptop-image {
-    max-height: 150px;
-    max-width: 150px;
+    max-height: 140px;
+    max-width: 140px;
     vertical-align: middle;
     margin-left: 10px;
 }
