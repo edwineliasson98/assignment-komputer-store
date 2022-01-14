@@ -11,6 +11,11 @@ const repayButtonElement = document.getElementById("repayButton");
 const bankButtonElement = document.getElementById("bankButton");
 const workButtonElement = document.getElementById("workButton");
 
+//Laptop elements
+const laptopsElement = document.getElementById("laptops");
+const featuresElement = document.getElementById("features");
+
+let laptops = [];
 /**
  * Prompts the user for a loan size. If larger than twice the balance, reject it.
  * 
@@ -104,11 +109,40 @@ const handleRepayLoan = () => {
     }
 }
 
+/**
+ * Calls addLaptopToSelect on every element of laptops
+ * 
+ * @param {*} laptops Array of laptop objects
+ */
+const addLaptopsToSelect = (laptops) => {
+    laptops.forEach(laptop => addLaptopToSelect(laptop));
+}
+
+/**
+ * Adds an option element to laptopsElement with
+ * laptop id and title
+ * 
+ * @param {*} laptop Laptop object
+ */
+const addLaptopToSelect = (laptop) => {
+    const laptopElement = document.createElement("option");
+    laptopElement.value = laptop.id;
+    laptopElement.innerText = laptop.title;
+    laptopsElement.appendChild(laptopElement);
+}
+
 //Listener setup
 loanButtonElement.addEventListener("click", handleGetLoan);
 workButtonElement.addEventListener("click", handleWorking);
 bankButtonElement.addEventListener("click", handlePutIntoBank);
 repayButtonElement.addEventListener("click", handleRepayLoan);
+
+//Fetch laptop data, parse it, store it in array and pass it on to function
+fetch("https://noroff-komputer-store-api.herokuapp.com/computers")
+    .then(response => response.json())
+    .then(data => laptops = data)
+    .then(laptops => addLaptopsToSelect(laptops));
+
 
 
 //General functions for reuse
