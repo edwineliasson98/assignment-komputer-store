@@ -9,20 +9,30 @@
     <script src="app.js" defer></script>
 </head>
 <body>
-    <div id="bank">
-        <h2>Joe Banker</h2>
-        <p>Balance <span id="bankBalance">0 Kr</span></p>
-        <p class="loaning">Outstanding Loan <span id="loanAmount">0 Kr</span></p>
-
-        <button id="loan">Get a loan</button>
-    </div>
-    <div id="work">
-        <h2>Work</h2>
-        <p>Pay <span id="workBalance">0 Kr</span></p>
-        
-        <button id="repayButton" class="loaning">Repay Loan</button>
-        <button id="bankButton">Bank</button>
-        <button id="workButton">Work</button>
+    <div id="top">
+        <div id="bank">
+            <h2>Joe Banker</h2>
+            <p>Balance <span id="bankBalance">0 Kr</span></p>
+            <p class="loaning">Outstanding Loan <span id="loanAmount">0 Kr</span></p>
+    
+            <button id="loan">Get a loan</button>
+        </div>
+        <div id="work">
+            <h2>Work</h2>
+            <p>Pay <span id="workBalance">0 Kr</span></p>
+            
+            <button id="repayButton" class="loaning">Repay Loan</button>
+            <button id="bankButton">Bank</button>
+            <button id="workButton">Work</button>
+        </div>
+        <div>
+            <h2>Laptops</h2>
+            <select name="laptops" id="laptops">
+                <option value="">Very cool laptop</option>
+            </select>
+            <h4>Features:</h4>
+            <span><small id="features">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Architecto, et.</small></span>
+        </div>
     </div>
 </body>
 </html>
