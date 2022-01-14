@@ -1,33 +1,50 @@
 //Bank elements
 const bankElement = document.getElementById("bank");
-const bankBalanceElement = document.getElementById("bankBalance");
+const bankBalanceElement = document.getElementById("bank-balance");
 const loanElements = document.getElementsByClassName("loaning");
-const loanAmountElement = document.getElementById("loanAmount");
-const loanButtonElement = document.getElementById("loan");
+const loanAmountElement = document.getElementById("loan-amount");
+const loanButtonElement = document.getElementById("loan-button");
 
 //Work elements
-const workBalanceElement = document.getElementById("workBalance");
-const repayButtonElement = document.getElementById("repayButton");
-const bankButtonElement = document.getElementById("bankButton");
-const workButtonElement = document.getElementById("workButton");
+const workBalanceElement = document.getElementById("work-balance");
+const repayButtonElement = document.getElementById("repay-button");
+const bankButtonElement = document.getElementById("bank-button");
+const workButtonElement = document.getElementById("work-button");
 
+//Laptop elements
+const laptopsElement = document.getElementById("laptops");
+const featuresElement = document.getElementById("features");
+//Laptop info & buy elements
+const laptopNameElement = document.getElementById("laptop-name");
+const laptopInformationElement = document.getElementById("information");
+const laptopPriceElement = document.getElementById("laptop-price");
+const buyButtonElement = document.getElementById("buy-button");
+const laptopImageElement = document.getElementById("laptop-element");
+
+let laptops = [];
 /**
- * Prompts the user for a loan size. If larger than twice the balance, reject it.
+ * Prompts the user for a loan size. If larger than twice the balance
+ * or input is not a number, reject it.
  * 
- * @returns Nothing, there to stop the function to continue (consider break instead)
+ * @returns Nothing, there to stop the function to continue
  */
 const handleGetLoan = () => {
     //check if balance is zero
-    const balance = parseInt(bankBalanceElement.innerText);
+    let balance = parseInt(bankBalanceElement.innerText);
     if(balance == 0) {
         alert("Balance is 0, get some money bum!");
         return;
     }
 
     //prompt user and check loan size
-    const loan = prompt("Please enter the size of the loan: ")
+    const loan = parseInt(prompt("Please enter the size of the loan: "));
     if (loan/2 > balance || loan == "" || loan == null) {
-        alert("Loan cannot be larger than twice the balance!")
+        alert("Loan cannot be larger than twice the balance!");
+        return;
+    }
+
+    if(isNaN(loan)) {
+        alert("Input has to be a number!");
         return;
     }
 
@@ -35,6 +52,10 @@ const handleGetLoan = () => {
         alert("Can only have one loan at a time!")
         return;
     }
+
+    //Add funds to balance
+    balance += loan;
+    bankBalanceElement.innerText = balance + " Kr";
 
     loanAmountElement.innerText = loan + " Kr";
     setLoanVisibility("visible");
@@ -104,12 +125,102 @@ const handleRepayLoan = () => {
     }
 }
 
+/**
+ * Calls addLaptopToSelect on every element of laptops
+ * 
+ * @param {*} laptops Array of laptop objects
+ */
+const addLaptopsToSelect = (laptops) => {
+    laptops.forEach(laptop => addLaptopToSelect(laptop));
+    changeFeatures(laptops[0]);
+    changeInfoArea(laptops[0]);
+}
+
+/**
+ * Adds an option element to laptopsElement with
+ * laptop id and title
+ * 
+ * @param {*} laptop Laptop object
+ */
+const addLaptopToSelect = (laptop) => {
+    const laptopElement = document.createElement("option");
+    laptopElement.value = laptop.id;
+    laptopElement.innerText = laptop.title;
+    laptopsElement.appendChild(laptopElement);
+}
+
+/**
+ * Changes the features text to the selected laptops description
+ * 
+ * @param {*} e 
+ */
+const handleLaptopChange = e => {
+    const selectedLaptop = laptops[e.target.selectedIndex];
+    changeFeatures(selectedLaptop)
+    changeInfoArea(selectedLaptop);
+}
+
+/**
+ * Checks if there is sufficient funds in the bank for the selected laptop.
+ * If not, alerts the user. Otherwise the user is alerted and funds are withdrawn.
+ * 
+ * @returns Nothing, breaks the function when insufficient funds
+ */
+const handleLaptopPurchase = () => {
+    //Check bank balance
+
+    let balance = parseInt(bankBalanceElement.innerText);
+    const laptopPrice = parseInt(laptopPriceElement.innerText);
+
+    //if not enough balance alert
+    if(balance < laptopPrice) {
+        alert("You cannot afford this laptop");
+        return;
+    }
+
+    //if enough balance withdraw money
+    balance -= laptopPrice;
+    bankBalanceElement.innerText = balance + " Kr";
+
+    //and alert
+    alert(`You are now the owner of the ${laptopNameElement.innerText} laptop!`)
+}
+
 //Listener setup
 loanButtonElement.addEventListener("click", handleGetLoan);
 workButtonElement.addEventListener("click", handleWorking);
 bankButtonElement.addEventListener("click", handlePutIntoBank);
 repayButtonElement.addEventListener("click", handleRepayLoan);
+laptopsElement.addEventListener("change", handleLaptopChange);
+buyButtonElement.addEventListener("click", handleLaptopPurchase);
 
+//Fetch laptop data, parse it, store it in array and pass it on to function
+fetch("https://noroff-komputer-store-api.herokuapp.com/computers")
+    .then(response => response.json())
+    .then(data => laptops = data)
+    .then(laptops => addLaptopsToSelect(laptops));
+
+
+/**
+ * Changes the elements in the info box according to the argument
+ * 
+ * @param {*} laptop Laptop object
+ */
+function changeInfoArea(laptop) {
+    laptopNameElement.innerText = laptop.title;
+    laptopInformationElement.innerText = laptop.description;
+    laptopPriceElement.innerText = laptop.price + " NOK";
+    /* TODO -- change the image*/
+}
+
+function changeFeatures(laptop) {
+    let specs = "";
+    for (const spec of laptop.specs) {
+        specs += spec + ", \n";
+    }
+    specs = specs.slice(0, -3);
+    featuresElement.innerText = specs;
+}
 
 //General functions for reuse
 /**

@@ -9,20 +9,45 @@
     <script src="app.js" defer></script>
 </head>
 <body>
-    <div id="bank">
-        <h2>Joe Banker</h2>
-        <p>Balance <span id="bankBalance">0 Kr</span></p>
-        <p class="loaning">Outstanding Loan <span id="loanAmount">0 Kr</span></p>
-
-        <button id="loan">Get a loan</button>
+    <div id="top">
+        <div id="bank">
+            <h2>Joe Banker</h2>
+            <p>Balance <span id="bank-balance">0 Kr</span></p>
+            <p class="loaning">Outstanding Loan <span id="loan-amount">0 Kr</span></p>
+    
+            <button id="loan-button">Get a loan</button>
+        </div>
+        <div id="work">
+            <h2>Work</h2>
+            <p>Pay <span id="work-balance">0 Kr</span></p>
+            
+            <button id="repay-button" class="loaning">Repay Loan</button>
+            <button id="bank-button">Bank</button>
+            <button id="work-button">Work</button>
+        </div>
+        <div>
+            <h2>Laptops</h2>
+            <select name="laptops" id="laptops"></select>
+            <h4>Features:</h4>
+            <span><small id="features">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Architecto, et.</small></span>
+        </div>
     </div>
-    <div id="work">
-        <h2>Work</h2>
-        <p>Pay <span id="workBalance">0 Kr</span></p>
-        
-        <button id="repayButton" class="loaning">Repay Loan</button>
-        <button id="bankButton">Bank</button>
-        <button id="workButton">Work</button>
+
+    <div id="bottom">
+        <div id="laptop-information">
+            <span class="helper"></span><img src="https://noroff-komputer-store-api.herokuapp.com/assets/images/1.png" alt="" id="laptop-image">
+            
+            <div id="price">
+                <h2 id="laptop-price">Price NOK</h2>
+                <button id="buy-button"><b>BUY NOW</b></button>
+            </div>
+
+            <div id="info">
+                <h1 id="laptop-name">Computer Name</h1>
+                <span id="information">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis, sapiente!</span>
+            </div>
+            
+        </div>
     </div>
 </body>
 </html>
