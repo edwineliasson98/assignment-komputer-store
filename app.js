@@ -19,7 +19,10 @@ const laptopNameElement = document.getElementById("laptop-name");
 const laptopInformationElement = document.getElementById("information");
 const laptopPriceElement = document.getElementById("laptop-price");
 const buyButtonElement = document.getElementById("buy-button");
-const laptopImageElement = document.getElementById("laptop-element");
+const laptopImageElement = document.getElementById("laptop-image");
+
+//REST api url
+const apiUrl = "https://noroff-komputer-store-api.herokuapp.com/";
 
 let laptops = [];
 /**
@@ -43,11 +46,13 @@ const handleGetLoan = () => {
         return;
     }
 
+    //check if input was not a number, if so alert and cancel
     if(isNaN(loan)) {
         alert("Input has to be a number!");
         return;
     }
 
+    //check if loan already exists. if so alert and cancel
     if(loanElements[0].style.visibility == "visible") {
         alert("Can only have one loan at a time!")
         return;
@@ -57,6 +62,7 @@ const handleGetLoan = () => {
     balance += loan;
     bankBalanceElement.innerText = balance + " Kr";
 
+    //create loan
     loanAmountElement.innerText = loan + " Kr";
     setLoanVisibility("visible");
 
@@ -134,6 +140,7 @@ const addLaptopsToSelect = (laptops) => {
     laptops.forEach(laptop => addLaptopToSelect(laptop));
     changeFeatures(laptops[0]);
     changeInfoArea(laptops[0]);
+    changeImage(laptops[0]);
 }
 
 /**
@@ -156,6 +163,7 @@ const addLaptopToSelect = (laptop) => {
  */
 const handleLaptopChange = e => {
     const selectedLaptop = laptops[e.target.selectedIndex];
+    changeImage(selectedLaptop);
     changeFeatures(selectedLaptop)
     changeInfoArea(selectedLaptop);
 }
@@ -195,11 +203,25 @@ laptopsElement.addEventListener("change", handleLaptopChange);
 buyButtonElement.addEventListener("click", handleLaptopPurchase);
 
 //Fetch laptop data, parse it, store it in array and pass it on to function
-fetch("https://noroff-komputer-store-api.herokuapp.com/computers")
+fetch(apiUrl + "computers")
     .then(response => response.json())
     .then(data => laptops = data)
     .then(laptops => addLaptopsToSelect(laptops));
 
+
+/**
+ * Changes the image in laptop information to the selected laptops image attribute.
+ * Does it manually for 5th laptop as it's the wrong directory
+ * 
+ * @param {object} laptop Laptop object with id and image attribute
+ */
+function changeImage(laptop) {
+    if(laptop.id === 5) {
+        laptopImageElement.src = apiUrl + "assets/images/5.png"
+    } else {
+        laptopImageElement.src = apiUrl + laptop.image;
+    }
+}
 
 /**
  * Changes the elements in the info box according to the argument
