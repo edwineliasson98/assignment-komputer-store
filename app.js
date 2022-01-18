@@ -232,7 +232,6 @@ function changeInfoArea(laptop) {
     laptopNameElement.innerText = laptop.title;
     laptopInformationElement.innerText = laptop.description;
     laptopPriceElement.innerText = laptop.price + " NOK";
-    /* TODO -- change the image*/
 }
 
 function changeFeatures(laptop) {
