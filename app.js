@@ -35,7 +35,7 @@ const handleGetLoan = () => {
     //check if balance is zero
     let balance = parseInt(bankBalanceElement.innerText);
     if(balance == 0) {
-        alert("Balance is 0, get some money bum!");
+        alert("Balance is 0, cannot provide a loan!");
         return;
     }
 
