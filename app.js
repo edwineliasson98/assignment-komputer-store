@@ -138,9 +138,9 @@ const handleRepayLoan = () => {
  */
 const addLaptopsToSelect = (laptops) => {
     laptops.forEach(laptop => addLaptopToSelect(laptop));
+    changeImage(laptops[0]);
     changeFeatures(laptops[0]);
     changeInfoArea(laptops[0]);
-    changeImage(laptops[0]);
 }
 
 /**
